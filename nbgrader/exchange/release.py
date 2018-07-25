@@ -86,7 +86,7 @@ class ExchangeRelease(Exchange):
             # so we have to create and then chmod.
             os.chmod(path, mode)
         else:
-            if not self_owned(path):
+            if not self.groupshared and not self_owned(path):
                 self.fail("You don't own the directory: {}".format(path))
 
     def copy_files(self):
