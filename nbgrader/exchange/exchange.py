@@ -76,6 +76,18 @@ class Exchange(LoggingConfigurable):
 
     coursedir = Instance(CourseDirectory, allow_none=True)
 
+    groupshared = Bool(
+        False,
+        help=dedent(
+            """
+            Be less strict about user permissions (instructor files are by
+            default group writeable.  Requires that admins ensure that primary
+            groups are correct!
+            """
+        )
+    ).tag(config=True)
+
+
     def __init__(self, coursedir=None, **kwargs):
         self.coursedir = coursedir
         super(Exchange, self).__init__(**kwargs)
