@@ -33,7 +33,7 @@ def chdir(dirname):
 
 class AssignmentList(LoggingConfigurable):
 
-    assignment_dir = Unicode('', help='Directory where the nbgrader commands should be run')
+    assignment_dir = Unicode('', help='Directory where the nbgrader commands should be run').tag(config=True)
     @default("assignment_dir")
     def _assignment_dir_default(self):
         return self.parent.notebook_dir
@@ -74,9 +74,9 @@ class AssignmentList(LoggingConfigurable):
             else:
                 for assignment in assignments:
                     if assignment['status'] == 'fetched':
-                        assignment['path'] = os.path.relpath(assignment['path'], self.assignment_dir)
+                        assignment['path'] = os.path.relpath(assignment['path'], self.parent.notebook_dir)
                         for notebook in assignment['notebooks']:
-                            notebook['path'] = os.path.relpath(notebook['path'], self.assignment_dir)
+                            notebook['path'] = os.path.relpath(notebook['path'], self.parent.notebook_dir)
                 retvalue = {
                     "success": True,
                     "value": sorted(assignments, key=lambda x: (x['course_id'], x['assignment_id']))
