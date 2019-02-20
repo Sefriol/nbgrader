@@ -261,7 +261,7 @@ class Validator(LoggingConfigurable):
     def _preprocess(self, nb):
         resources = {}
         for preprocessor in self.preprocessors:
-            pp = preprocessor()
+            pp = preprocessor(**self.config[preprocessor.__name__])
             nb, resources = pp.preprocess(nb, resources)
         return nb
 
