@@ -55,6 +55,15 @@ class CourseDirectory(LoggingConfigurable):
             self.log.warning("student_id '%s' has trailing whitespace, stripping it away", proposal['value'])
         return proposal['value'].strip()
 
+    student_id_exclude = Unicode(
+        "",
+        help=dedent(
+            """
+            Comma-separated list of student IDs to exclude.  Counterpart of student_id.
+            """
+        )
+    ).tag(config=True)
+
     assignment_id = Unicode(
         "",
         help=dedent(
